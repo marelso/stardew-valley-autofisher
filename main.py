@@ -34,20 +34,20 @@ def get_energy_level(screenshot):
 
 
 def get_time_of_day(screenshot):
-    # date time position
-    start_point = (1729, 122)
-    end_point = (1883, 153)
-
-    x, y = start_point
-
-    width = end_point[0] - start_point[0]
-    height = end_point[1] - start_point[1]
-
-    time_of_day = screenshot[y:y + height, x:x + width]
+    time_of_day = crop_image(screenshot, (1729, 122), (1883, 153))
 
     cv2.imwrite(f"time_of_day_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.png", time_of_day)
 
     return time_of_day
+
+
+def crop_image(screenshot, starting_position, ending_position):
+    x, y = starting_position
+
+    width = ending_position[0] - starting_position[0]
+    height = ending_position[1] - starting_position[1]
+
+    return screenshot[y:y + height, x:x + width]
 
 
 def main():
